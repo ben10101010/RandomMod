@@ -1,0 +1,19 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "random_mod:block/throne"
+		},
+		"facing=south": {
+			"model": "random_mod:block/throne",
+			"y": 180
+		},
+		"facing=east": {
+			"model": "random_mod:block/throne",
+			"y": 90
+		},
+		"facing=west": {
+			"model": "random_mod:block/throne",
+			"y": 270
+		}
+	}
+}

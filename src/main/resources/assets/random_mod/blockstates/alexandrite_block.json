@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "random_mod:block/alexandrite_block"
+    }
+  }
+}

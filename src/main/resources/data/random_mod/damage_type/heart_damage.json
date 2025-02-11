@@ -1,0 +1,12 @@
+{
+
+  "message_id": "random_mod.heart_damage",
+
+  "scaling": "always",
+
+  "exhaustion": 0.1,
+
+  "effects": "hurt",
+
+  "death_message_type": "default"
+}

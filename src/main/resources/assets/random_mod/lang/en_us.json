@@ -1,0 +1,17 @@
+{
+  "item.random_mod.alexandrite": "Alexandrite",
+  "item.random_mod.chisel": "Chisel",
+
+
+  "block.random_mod.alexandrite_block": "Block of Alexandrite",
+  "block.random_mod.magic_block": "Magic Block",
+  "block.random_mod.throne": "Throne",
+
+  "creativetab.random_mod.random_mod_tabs": "Random Mod",
+
+  "effect.random_mod.heartburst": "Heart Burst",
+
+  "key.random_mod.heartRip": "Heart Rip",
+
+  "death.attack.random_mod.heart_damage": "Bro ripped his heart out..."
+}
