@@ -25,6 +25,7 @@ public class ModCreativeModTabs {
                         output.accept(ModBlocks.ALEXANDRITE_BLOCK.get());
                         output.accept(ModBlocks.MAGIC_BLOCK.get());
                         output.accept(ModBlocks.THRONE.get());
+                        output.accept(ModItems.NIGHT_REAPER_EGG.get());
                     }).build());
 
     public static void register(IEventBus eventBus) {

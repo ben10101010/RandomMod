@@ -13,5 +13,7 @@
 
   "key.random_mod.heartRip": "Heart Rip",
 
-  "death.attack.random_mod.heart_damage": "Bro ripped his heart out..."
+  "death.attack.random_mod.heart_damage": "Bro ripped his heart out...",
+
+  "entity.random_mod.night_reaper": "Night Reaper"
 }

@@ -1,16 +1,23 @@
 package net.quantumdeathlord.randommod;
 
+import com.mojang.brigadier.ParseResults;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -18,6 +25,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -30,8 +38,11 @@ import net.quantumdeathlord.randommod.client.Keybindings;
 import net.quantumdeathlord.randommod.effect.ModEffects;
 import net.quantumdeathlord.randommod.entity.ModEntities;
 import net.quantumdeathlord.randommod.entity.client.ChairRenderer;
+import net.quantumdeathlord.randommod.entity.client.NightReaperRenderer;
 import net.quantumdeathlord.randommod.item.ModItems;
+import net.quantumdeathlord.randommod.sound.ModSounds;
 import org.slf4j.Logger;
+import software.bernie.geckolib.GeckoLib;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(RandomMod.MOD_ID)
@@ -59,6 +70,9 @@ public class RandomMod
         ModBlocks.register(modEventBus);
         ModEntities.register(modEventBus);
         ModEffects.register(modEventBus);
+        ModSounds.register(modEventBus);
+
+
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -99,6 +113,8 @@ public class RandomMod
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             EntityRenderers.register(ModEntities.CHAIR.get(), ChairRenderer::new);
+
+            EntityRenderers.register(ModEntities.NIGHT_REAPER.get(), NightReaperRenderer::new);
         }
     }
 
@@ -111,12 +127,15 @@ public class RandomMod
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent.Post event) {
 
-        Minecraft minecraft = Minecraft.getInstance();
+        Player player = Minecraft.getInstance().player;
         if (event.phase == TickEvent.Phase.END) {
-            if (Keybindings.HEART_RIP.get().isDown() && minecraft.player != null) {
+            if (Keybindings.HEART_RIP.get().isDown() && player != null) {
                 Keybindings.HEART_RIP.get().consumeClick();
-                minecraft.player.addEffect(new MobEffectInstance(ModEffects.HEART_BURST.getHolder().get(), 200, 0));
-                minecraft.player.displayClientMessage(HAHA, true);
+                player.addEffect(new MobEffectInstance(ModEffects.HEART_BURST.getHolder().get(), 800, 0, true, true));
+                player.displayClientMessage(HAHA, true);
+               // ClientCommandHandler.runCommand("/effect give " + player.getName() + " random_mod:heartburst");
+               // MinecraftServer source = player.getServer();
+                //source.getCommands().performCommand(source.createCommandSourceStack(), "/effect give " + player.getName() + " random_mod:heartburst");
             }
         }
     }
